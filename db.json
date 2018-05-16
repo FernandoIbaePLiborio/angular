@@ -512,6 +512,22 @@
         }
       ],
       "id": 8
+    },
+    {
+      "name": "Monstro",
+      "email": "monstro@monstro.com",
+      "emailConfirmation": "monstro@monstro.com",
+      "address": "rua das bandeiras",
+      "number": "1443",
+      "optionalAddress": "casa",
+      "paymentOption": "REF",
+      "orderItems": [
+        {
+          "quantity": 1,
+          "menuId": "cup-cake"
+        }
+      ],
+      "id": 9
     }
   ]
 }
