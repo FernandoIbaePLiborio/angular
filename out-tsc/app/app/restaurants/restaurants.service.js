@@ -8,30 +8,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { MEAT_API } from '../app.api';
-import { ErrorHandler } from '../app.error-handler';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 var RestaurantsService = (function () {
     function RestaurantsService(http) {
         this.http = http;
     }
-    RestaurantsService.prototype.restaurants = function () {
-        return this.http.get(MEAT_API + "/restaurants")
-            .map(function (response) { return response.json(); })
-            .catch(ErrorHandler.handleError);
+    RestaurantsService.prototype.restaurants = function (search) {
+        var params = undefined;
+        if (search) {
+            params = new HttpParams().set('q', search);
+            /* no lugar do set poderia ser usado append e até ser encadeado mais de um set ex:
+            params = new HttpParams().set('q', search).set(...) */
+        }
+        return this.http.get(MEAT_API + "/restaurants", { params: params });
     };
     RestaurantsService.prototype.restaurantById = function (id) {
-        return this.http.get(MEAT_API + "/restaurants/" + id)
-            .map(function (response) { return response.json(); })
-            .catch(ErrorHandler.handleError);
+        return this.http.get(MEAT_API + "/restaurants/" + id);
     };
+    RestaurantsService.prototype.reviewsOfRestaurant = function (id) {
+        return this.http.get(MEAT_API + "/restaurants/" + id + "/reviews");
+    };
+    RestaurantsService.prototype.menuOfRestaurant = function (id) {
+        return this.http.get(MEAT_API + "/restaurants/" + id + "/menu");
+    };
+    RestaurantsService = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [HttpClient])
+    ], RestaurantsService);
     return RestaurantsService;
 }());
-RestaurantsService = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [Http])
-], RestaurantsService);
 export { RestaurantsService };
 //# sourceMappingURL=restaurants.service.js.map

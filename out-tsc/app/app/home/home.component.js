@@ -13,14 +13,14 @@ var HomeComponent = (function () {
     }
     HomeComponent.prototype.ngOnInit = function () {
     };
+    HomeComponent = __decorate([
+        Component({
+            selector: 'mt-home',
+            templateUrl: './home.component.html'
+        }),
+        __metadata("design:paramtypes", [])
+    ], HomeComponent);
     return HomeComponent;
 }());
-HomeComponent = __decorate([
-    Component({
-        selector: 'mt-home',
-        templateUrl: './home.component.html'
-    }),
-    __metadata("design:paramtypes", [])
-], HomeComponent);
 export { HomeComponent };
 //# sourceMappingURL=home.component.js.map

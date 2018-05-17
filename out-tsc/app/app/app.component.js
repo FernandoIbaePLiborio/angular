@@ -14,14 +14,14 @@ var AppComponent = (function () {
     }
     AppComponent.prototype.ngOnInit = function () {
     };
+    AppComponent = __decorate([
+        Component({
+            selector: 'mt-app',
+            templateUrl: 'app.component.html'
+        }),
+        __metadata("design:paramtypes", [])
+    ], AppComponent);
     return AppComponent;
 }());
-AppComponent = __decorate([
-    Component({
-        selector: 'mt-app',
-        templateUrl: 'app.component.html'
-    }),
-    __metadata("design:paramtypes", [])
-], AppComponent);
 export { AppComponent };
 //# sourceMappingURL=app.component.js.map

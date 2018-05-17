@@ -7,20 +7,54 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+import { ShoppingCartService } from './shopping-cart.service';
 import { Component } from '@angular/core';
+import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 var ShoppingCartComponent = (function () {
-    function ShoppingCartComponent() {
+    function ShoppingCartComponent(shoppingCartService) {
+        this.shoppingCartService = shoppingCartService;
+        this.rowsState = 'ready';
     }
     ShoppingCartComponent.prototype.ngOnInit = function () {
     };
+    ShoppingCartComponent.prototype.items = function () {
+        return this.shoppingCartService.items;
+    };
+    ShoppingCartComponent.prototype.total = function () {
+        return this.shoppingCartService.total();
+    };
+    ShoppingCartComponent.prototype.clear = function () {
+        this.shoppingCartService.clear();
+    };
+    ShoppingCartComponent.prototype.removeItem = function (item) {
+        this.shoppingCartService.removeItem(item);
+    };
+    ShoppingCartComponent.prototype.addItem = function (item) {
+        this.shoppingCartService.addItem(item);
+    };
+    ShoppingCartComponent = __decorate([
+        Component({
+            selector: 'mt-shopping-cart',
+            templateUrl: './shopping-cart.component.html',
+            animations: [
+                trigger('row', [
+                    state('ready', style({ opacity: 1 })),
+                    transition('void => ready', animate('300ms 0s ease-in', keyframes([
+                        style({ opacity: 0, transform: 'translateX(-30px)', offset: 0 }),
+                        style({ opacity: 0.8, transform: 'translateX(10px)', offset: 0.8 }),
+                        style({ opacity: 1, transform: 'translateX(0px)', offset: 1 })
+                    ]))),
+                    transition('ready => void', animate('300ms 0s ease-out', keyframes([
+                        style({ opacity: 1, transform: 'translateX(0px)', offset: 1 }),
+                        style({ opacity: 0.8, transform: 'translateX(-10px)', offset: 0.2 }),
+                        style({ opacity: 0, transform: 'translateX(30px)', offset: 0 })
+                    ])))
+                ])
+            ]
+        }),
+        __metadata("design:paramtypes", [ShoppingCartService])
+    ], ShoppingCartComponent);
     return ShoppingCartComponent;
 }());
-ShoppingCartComponent = __decorate([
-    Component({
-        selector: 'mt-shopping-cart',
-        templateUrl: './shopping-cart.component.html'
-    }),
-    __metadata("design:paramtypes", [])
-], ShoppingCartComponent);
 export { ShoppingCartComponent };
 //# sourceMappingURL=shopping-cart.component.js.map
