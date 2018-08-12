@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-var MenuItemComponent = (function () {
+var MenuItemComponent = /** @class */ (function () {
     function MenuItemComponent() {
         this.menuItemState = 'ready';
         this.add = new EventEmitter();

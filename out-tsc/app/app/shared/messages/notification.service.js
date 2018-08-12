@@ -1,5 +1,5 @@
 import { EventEmitter } from '@angular/core';
-var NotificationService = (function () {
+var NotificationService = /** @class */ (function () {
     function NotificationService() {
         this.notifier = new EventEmitter();
     }

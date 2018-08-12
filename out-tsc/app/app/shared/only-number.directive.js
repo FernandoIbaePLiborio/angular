@@ -8,7 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
-var OnlyNumberDirective = (function () {
+var OnlyNumberDirective = /** @class */ (function () {
     function OnlyNumberDirective(el) {
         this.el = el;
         // Allow decimal numbers. The \. is only allowed once to occur

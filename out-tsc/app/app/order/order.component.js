@@ -9,10 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { OrderService } from './order.service';
 import { OrderItem } from './order.model';
-var OrderComponent = (function () {
+import 'rxjs/add/operator/do';
+var OrderComponent = /** @class */ (function () {
     function OrderComponent(orderService, router, formBuilder) {
         this.orderService = orderService;
         this.router = router;
@@ -27,18 +28,21 @@ var OrderComponent = (function () {
     }
     OrderComponent_1 = OrderComponent;
     OrderComponent.prototype.ngOnInit = function () {
-        this.orderForm = this.formBuilder.group({
+        this.orderForm = new FormGroup({
             /* $('#number').keyup(function () {
               $(this).val(this.value.replace(/\D/g,''));
             }); */
-            name: this.formBuilder.control('', [Validators.required, Validators.minLength(5)]),
+            name: new FormControl('', {
+                validators: [Validators.required, Validators.minLength(5)],
+                updateOn: 'blur'
+            }),
             email: this.formBuilder.control('', [Validators.required, Validators.pattern(this.emailPatern)]),
             emailConfirmation: this.formBuilder.control('', [Validators.required, Validators.pattern(this.emailPatern)]),
             address: this.formBuilder.control('', [Validators.required, Validators.minLength(5)]),
             number: this.formBuilder.control('', [Validators.required]),
             optionalAddress: this.formBuilder.control(''),
             paymentOption: this.formBuilder.control('', [Validators.required])
-        }, { validator: OrderComponent_1.equalsTo });
+        }, { validators: [OrderComponent_1.equalsTo], updateOn: 'blur' });
     };
     OrderComponent.equalsTo = function (group) {
         var email = group.get('email');
@@ -70,7 +74,11 @@ var OrderComponent = (function () {
         var _this = this;
         order.orderItems = this.cartItems()
             .map(function (item) { return new OrderItem(item.quantity, item.menuItem.id); });
-        this.orderService.checkOrder(order).subscribe(function (orderId) {
+        this.orderService.checkOrder(order)
+            .do(function (orderId) {
+            _this.orderId = orderId;
+        })
+            .subscribe(function (orderId) {
             _this.router.navigate(['/order-summary']);
             console.log("Compra conclu\u00EDda " + orderId);
             _this.orderService.clear();
@@ -85,6 +93,9 @@ var OrderComponent = (function () {
         if (event.keyCode != 8 && !pattern.test(inputChar)) {
             event.preventDefault();
         }
+    };
+    OrderComponent.prototype.isOrderCompleted = function () {
+        return this.orderId !== undefined;
     };
     OrderComponent = OrderComponent_1 = __decorate([
         Component({

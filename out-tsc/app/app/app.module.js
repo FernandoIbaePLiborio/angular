@@ -6,7 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule, LOCALE_ID, ErrorHandler } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, PreloadAllModules } from '@angular/router';
 import { ROUTES } from './app.routes';
@@ -23,8 +23,14 @@ import { ReviewsComponent } from './restaurant-detail/reviews/reviews.component'
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import { SharedModule } from './shared/shared.modulo';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { registerLocaleData } from '@angular/common';
+import { LoginComponent } from './security/login/login.component';
+import { UserDetailComponent } from './header/user-detail/user-detail.component';
+import localtePt from '@angular/common/locales/pt';
+import { ApplicationErrorHandler } from './app.error-handler';
+registerLocaleData(localtePt, 'pt');
 ShoppingCartComponent;
-var AppModule = (function () {
+var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
@@ -41,7 +47,9 @@ var AppModule = (function () {
                 MenuItemComponent,
                 ReviewsComponent,
                 OrderSummaryComponent,
-                NotFoundComponent
+                NotFoundComponent,
+                LoginComponent,
+                UserDetailComponent
             ],
             imports: [
                 BrowserModule,
@@ -50,7 +58,8 @@ var AppModule = (function () {
                 SharedModule.forRoot(),
                 RouterModule.forRoot(ROUTES, { preloadingStrategy: PreloadAllModules })
             ],
-            providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
+            providers: [{ provide: LOCALE_ID, useValue: 'pt' },
+                { provide: ErrorHandler, useClass: ApplicationErrorHandler }],
             bootstrap: [AppComponent]
         })
     ], AppModule);

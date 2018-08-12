@@ -8,7 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component, Output, EventEmitter } from '@angular/core';
-var RatingComponent = (function () {
+var RatingComponent = /** @class */ (function () {
     function RatingComponent() {
         this.rated = new EventEmitter();
         this.rates = [1, 2, 3, 4, 5];

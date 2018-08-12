@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { ShoppingCartService } from './shopping-cart.service';
 import { Component } from '@angular/core';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
-var ShoppingCartComponent = (function () {
+var ShoppingCartComponent = /** @class */ (function () {
     function ShoppingCartComponent(shoppingCartService) {
         this.shoppingCartService = shoppingCartService;
         this.rowsState = 'ready';
@@ -36,6 +36,7 @@ var ShoppingCartComponent = (function () {
         Component({
             selector: 'mt-shopping-cart',
             templateUrl: './shopping-cart.component.html',
+            preserveWhitespaces: true,
             animations: [
                 trigger('row', [
                     state('ready', style({ opacity: 1 })),

@@ -8,7 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var OrderSummaryComponent = (function () {
+var OrderSummaryComponent = /** @class */ (function () {
     function OrderSummaryComponent() {
     }
     OrderSummaryComponent.prototype.ngOnInit = function () {

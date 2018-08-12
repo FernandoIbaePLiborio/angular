@@ -10,7 +10,7 @@ import { NgModule } from '@angular/core';
 var ROUTES = [
     { path: '', component: AboutComponent }
 ];
-var AboutModule = (function () {
+var AboutModule = /** @class */ (function () {
     function AboutModule() {
     }
     AboutModule = __decorate([

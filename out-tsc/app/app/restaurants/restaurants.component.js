@@ -7,12 +7,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Observable } from 'rxjs';
+import { switchMap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { from } from 'rxjs';
 import { FormBuilder } from '@angular/forms';
 import { Component } from '@angular/core';
 import { RestaurantsService } from './restaurants.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-var RestaurantsComponent = (function () {
+var RestaurantsComponent = /** @class */ (function () {
     function RestaurantsComponent(restaurantsService, formBuilder) {
         this.restaurantsService = restaurantsService;
         this.formBuilder = formBuilder;
@@ -22,15 +23,17 @@ var RestaurantsComponent = (function () {
         var _this = this;
         this.searchControl = this.formBuilder.control('');
         this.searchForm = this.formBuilder.group({
-            searchControl: this.searchControl
+            searchControl: this.searchControl,
+            vin: this.vin
         });
         this.searchControl.valueChanges
-            .debounceTime(500) //500 milisegundos para realizar nova pesquisa
-            .distinctUntilChanged() // não deixa repetir a mesma query novamente
-            .switchMap(function (searchTearm) { return _this.restaurantsService
+            .pipe(debounceTime(500), //500 milisegundos para realizar nova pesquisa
+        distinctUntilChanged(), // não deixa repetir a mesma query novamente
+        /* .do(searchTerm => console.log(`q=${searchTerm}`)) */ //somente para vericar a digitação no console
+        switchMap(function (searchTearm) { return _this.restaurantsService
             .restaurants(searchTearm)
-            .catch(function (error) { return Observable.from([]); }); }) //evita que o erro de rede quebre o valueChanges
-            .subscribe(function (restaurants) { return _this.restaurants = restaurants; });
+            .pipe(function (catchError) { return from([]); }); }) //evita que o erro de rede quebre o valueChanges)
+        ).subscribe(function (restaurants) { return _this.restaurants = restaurants; });
         this.restaurantsService.restaurants()
             .subscribe(function (restaurants) { return _this.restaurants = restaurants; });
     };
@@ -52,7 +55,7 @@ var RestaurantsComponent = (function () {
                         "max-height": "70px",
                         "margin-top": "20px"
                     })),
-                    transition('* => *', animate('100ms 0s ease-in-out'))
+                    transition('* => *', animate('300ms 0s ease-in-out'))
                 ])
             ]
         }),
