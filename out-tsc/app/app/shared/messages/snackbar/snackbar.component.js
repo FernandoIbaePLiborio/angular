@@ -42,7 +42,7 @@ var SnackbarComponent = /** @class */ (function () {
                         bottom: '30px'
                     })),
                     transition('hidden => visible', animate('500ms 0s ease-in')),
-                    transition('visible => hidden', animate('500ms 0s ease-out')),
+                    transition('visible => hidden', animate('500ms 0s ease-out'))
                 ])
             ]
         }),

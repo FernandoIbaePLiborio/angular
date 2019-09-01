@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, LOCALE_ID, ErrorHandler } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, PreloadAllModules } from '@angular/router';
+import { ApplicationErrorHandler } from './app.error-handler';
 import { ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -27,7 +28,6 @@ import { registerLocaleData } from '@angular/common';
 import { LoginComponent } from './security/login/login.component';
 import { UserDetailComponent } from './header/user-detail/user-detail.component';
 import localtePt from '@angular/common/locales/pt';
-import { ApplicationErrorHandler } from './app.error-handler';
 registerLocaleData(localtePt, 'pt');
 ShoppingCartComponent;
 var AppModule = /** @class */ (function () {

@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { OrderService } from './order.service';
 import { OrderItem } from './order.model';
-import 'rxjs/add/operator/do';
+import { tap } from 'rxjs/operators';
 var OrderComponent = /** @class */ (function () {
     function OrderComponent(orderService, router, formBuilder) {
         this.orderService = orderService;
@@ -75,9 +75,9 @@ var OrderComponent = /** @class */ (function () {
         order.orderItems = this.cartItems()
             .map(function (item) { return new OrderItem(item.quantity, item.menuItem.id); });
         this.orderService.checkOrder(order)
-            .do(function (orderId) {
+            .pipe(tap(function (orderId) {
             _this.orderId = orderId;
-        })
+        }))
             .subscribe(function (orderId) {
             _this.router.navigate(['/order-summary']);
             console.log("Compra conclu\u00EDda " + orderId);

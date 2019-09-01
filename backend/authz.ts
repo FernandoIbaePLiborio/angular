@@ -5,6 +5,9 @@ import * as jwt from "jsonwebtoken"
 export const handleAuthorization = (req: Request, resp: Response, next) => {
     const token = extractToken(req)
     if (!token) {
+        resp.setHeader('access-control-allow-origin', '*')
+        resp.setHeader('access-control-allow-methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS')
+        resp.setHeader('access-control-allow-headers', 'ontent-Type, Origin, Accept, X-CUSTOM-HEADER')
         resp.setHeader('WWW-Authenticate', 'Bearer token_type="JWT"')
         resp.status(401).json({ message: 'Você precisa se autenticar.' })
     } else {
@@ -21,7 +24,7 @@ export const handleAuthorization = (req: Request, resp: Response, next) => {
 function extractToken(req: Request): string {
     let token = undefined
     if (req.headers && req.headers.authorization) {
-        const parts: string[] = req.headers.authorization.split(' ')
+        const parts: string[] = (req.headers.authorization as string).split(' ')
         if (parts.length === 2 && parts[0] === 'Bearer') {
             token = parts[1]
         }

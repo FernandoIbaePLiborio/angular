@@ -6,6 +6,8 @@ exports.handleAuthorization = function (req, resp, next) {
     var token = extractToken(req);
     if (!token) {
         resp.setHeader('WWW-Authenticate', 'Bearer token_type="JWT"');
+        resp.setHeader('access-control-allow-origin', '*');
+        resp.setHeader('access-control-allow-headers', 'Origin, X-Requested-With, Content-Type, Accept');
         resp.status(401).json({ message: 'Você precisa se autenticar.' });
     }
     else {
