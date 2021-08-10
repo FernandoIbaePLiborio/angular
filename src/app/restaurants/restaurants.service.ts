@@ -10,6 +10,7 @@ export class RestaurantsService {
 
   constructor(private http: HttpClient) { }
   restaurants(search?: string): Observable<Restaurant[]> {
+    
     let params: HttpParams = undefined
     if (search){
       params = new HttpParams().set('q', search)
